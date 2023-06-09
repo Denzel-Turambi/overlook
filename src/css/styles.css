@@ -54,6 +54,7 @@ h1, h2 {
 }
 
 /* MAIN */
+  /* reservation page */
 .reservation-dashboard {
   margin-top: 4em;
   display: flex;
@@ -75,6 +76,41 @@ h1, h2 {
 
 .reservation-selection {
   height: 60vh;
+}
+
+  /* login page */
+.login-page {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  height: 32vh;
+  width: 32vw;
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: #D8E77E;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 16px;
+}
+
+.login-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-button {
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: #DB5375;
+  color:#ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 8px 5px 8px;
 }
 
 .hidden {
