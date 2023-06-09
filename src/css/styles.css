@@ -1,3 +1,118 @@
+/* font-family: 'Alice', serif; */
+/* font-family: 'Josefin Sans', sans-serif; */
+/* #F4F1ED - soft white */
+/* #DB5375 - blush red */
+
+/* GENERAL */
 body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background: #F4F1ED;
+  font-family: 'Alice', serif;
+  margin: 0;
+}
+
+/* NAV SECTION */
+.nav-bar {
+  background: #DB5375;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  color: #ffffff;
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h1, h2 {
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.nav-buttons {
+  margin-top: 2em;
+  margin-right: 3em;
+}
+
+.nav-button {
+  cursor: pointer;
+  margin-right: 2em;
+  background-color: #DB5375;
+  color:white;
+  font-family: 'Josefin Sans', sans-serif;
+  border: none;
+}
+
+.nav-button:hover {
+  border-bottom: 4px solid #D8E77E;
+  transition: 0.19s;
+}
+
+/* MAIN */
+  /* reservation page */
+.reservation-dashboard {
+  margin-top: 4em;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.new-reservation-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reservation-selection, .upcoming-reservations, .past-reservations {
+  background-color: #EC9192;
+  border: 8px solid #D8E77E;
+  height: 30vh;
+  width: 30vw;
+}
+
+.reservation-selection {
+  height: 60vh;
+}
+
+  /* login page */
+.login-page {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  height: 32vh;
+  width: 32vw;
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: #D8E77E;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 16px;
+}
+
+.login-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-button {
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: #DB5375;
+  color:#ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 8px 5px 8px;
+}
+
+.hidden {
+  display: none;
 }
