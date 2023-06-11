@@ -78,6 +78,22 @@ const roomsData = [
       "bedSize": "twin",
       "numBeds": 1,
       "costPerNight": 497.64
+  },
+  {
+      "number": 11,
+      "roomType": "single room",
+      "bidet": true,
+      "bedSize": "twin",
+      "numBeds": 2,
+      "costPerNight": 207.24
+  },
+  {
+      "number": 12,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "twin",
+      "numBeds": 2,
+      "costPerNight": 172.09
   }
 ]
 
