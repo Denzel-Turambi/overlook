@@ -2,8 +2,9 @@ import chai from 'chai';
 import { customerData } from '../src/data/customers-sample-data';
 import { roomsData } from '../src/data/rooms-sample-data';
 import { bookingsData } from '../src/data/bookings-sample-data';
-import { findCustomerBookings } from '../src/customerUtils';
+import { calculateBookingsCost, findCustomerBookings } from '../src/customerUtils';
 const expect = chai.expect;
+
 
 describe('findCustomerBookings', function() {
   it('should be a function', function() {
@@ -33,5 +34,22 @@ describe('findCustomerBookings', function() {
 
     expect(bookedRooms.length).to.equal(2);
     expect(bookedRooms).to.deep.equal(output);
-  })
+  });
 });
+
+describe('calculateBookingsCost', function() {
+  it('should be a function', function() {
+    expect(calculateBookingsCost).to.be.a('function')
+  });
+
+  it('should calculate the total the user has spent on rooms', function() {
+    let customer1 = {
+      "id": 1,
+      "name": "Leatha Ullrich"
+    };
+    let bookedRooms = findCustomerBookings(bookingsData, customer1);
+    let totalCost = calculateBookingsCost(roomsData, bookedRooms);
+
+    expect(totalCost).to.equal(512.26);
+  })
+})
