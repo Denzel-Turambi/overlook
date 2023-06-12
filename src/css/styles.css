@@ -101,6 +101,14 @@ h1, h2 {
   padding: 4px 0 8px 8px;
   margin-top: 2em;
 }
+
+.booking-info {
+  font-family: 'Josefin Sans', sans-serif;
+  width: 30vw;
+  display: flex;
+  justify-content: space-around;
+  /* margin-left: 2.5em; */
+}
   /* login page */
 .login-page {
   height: 80vh;
