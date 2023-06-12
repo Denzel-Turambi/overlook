@@ -35,7 +35,7 @@ window.addEventListener('load', () => {
     customers = data[1].customers;
     rooms = data[3].rooms;
   });
-})
+});
 
 newBookingButton.addEventListener('click', function () {
     removeHiddenClass([bookNowPage]);
@@ -47,6 +47,11 @@ profileButton.addEventListener('click', function () {
   addHiddenClass([bookNowPage]);
 })
 
+profileButton.addEventListener('click', function() {
+  let userBookings = findCustomerBookings(bookings, currentUser);
+  console.log(userBookings);
+  displayPastReservations(userBookings);
+})
 // Event Handlers/Functions
 function removeHiddenClass(elements) {
   return elements.forEach(element => element.classList.remove('hidden'));
@@ -56,29 +61,14 @@ function addHiddenClass(elements) {
   return elements.forEach(element => element.classList.add('hidden'));
 };
 
-// const startFetch = () => {
-//   Promise.all([getAllBookings(), getAllCustomers(), getSingleCustomer(), getAllRooms()]).then((data) => {
-//     console.log(data)
-//     let bookings = data[0].bookings;
-//     let singleCustomer = data[2];
-//     let customers = data[1].customers;
-//     let rooms = data[3].rooms;
-//     window.addEventListener('load', function() {
-//       let userBookings = findCustomerBookings(bookings, singleCustomer)
-//       displayPastReservations(userBookings);
-//       console.log(userBookings)
-//     })
-//   })
-  
-
-//   const displayPastReservations = (array) => {
-//     pastReservations.innerHTML = ''
-//     return array.forEach(elem => {
-//       pastReservations.innerHTML += `
-//       <p>${elem.roomNumber}</p>
-//       `
-//     })
-//   }
-// }
-
-// startFetch();
+const displayPastReservations = (array) => {
+      pastReservations.innerHTML = ''
+      return array.forEach(elem => {
+        pastReservations.innerHTML += `
+        <div class="booking-info">
+          <p>room #${elem.roomNumber}</p>
+          <p>date booked: ${elem.date}</p>
+        <div>
+        `
+      });
+    };
