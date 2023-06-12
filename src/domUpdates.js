@@ -18,6 +18,7 @@ const bookNowPage = document.querySelector('.book-now-page');
 // profile page/reservations dashboard
 const profilePage = document.querySelector('.profile-page');
 const pastReservations = document.querySelector('.past-reservations');
+const totalSpentLabel = document.querySelector('.total-cost');
 
 // login page
 const loginPage = document.querySelector('.login-page');
@@ -51,6 +52,9 @@ profileButton.addEventListener('click', function() {
   let userBookings = findCustomerBookings(bookings, currentUser);
   console.log(userBookings);
   displayPastReservations(userBookings);
+  let totalCost = calculateBookingsCost(rooms, userBookings);
+  console.log(totalCost)
+  displayTotalSpent(totalCost);
 })
 // Event Handlers/Functions
 function removeHiddenClass(elements) {
@@ -72,3 +76,10 @@ const displayPastReservations = (array) => {
         `
       });
     };
+
+const displayTotalSpent = (total) => {
+  totalSpentLabel.innerHTML = ''
+  totalSpentLabel.innerHTML = `
+    <p>You have spent a total of:</p>
+    <p>$ ${Math.round(total).toFixed(2)}</p>`
+};
