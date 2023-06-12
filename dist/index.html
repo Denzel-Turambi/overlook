@@ -16,12 +16,34 @@
       <h2>Resort & Spa Hotel</h2>
     </header>
     <div class="nav-buttons">
-      <button class="nav-button">BOOKINGS</button>
+      <button class="nav-button">BOOK NOW</button>
       <button class="nav-button">PROFILE</button>
     </div>
   </nav>
   <main>
-    <section class="reservation-dashboard">
+    <section class="profile-page">
+      <aside class="total-cost">
+        <p>You have spent a total of:</p>
+        <p>$____</p>
+      </aside>
+      <div class="all-reservations">
+        <div class="reservations-box-wrapper">
+          <h3>Upcoming Reservations</h3>
+          <section class="upcoming-reservations">
+            <!-- upcoming reservations go here -->
+            <p>room 21 12/21/2023</p>
+          </section>
+        </div>
+        <div class="reservations-box-wrapper">
+          <h3>Past Reservations</h3>
+          <section class="past-reservations">
+            <!-- past reservations go here -->
+            <p>room 64 6/9/2021</p>
+          </section>
+        </div>
+      </div>
+    </section>
+    <section class="book-now-page hidden">
       <div class="new-reservation-wrapper">
         <form class="new-reservation-form">
           <label for="date-picker">Make A Reservation</label>
@@ -32,21 +54,6 @@
           <!-- available reservations go here -->
           <p>room 1 $450.00/night</p>
         </section>
-      </div>
-      <div class="all-reservations">
-        <h3>Upcoming Reservations</h3>
-        <section class="upcoming-reservations">
-          <!-- upcoming reservations go here -->
-          <p>room 21 12/21/2023</p>
-        </section>
-        <h3>Past Reservations</h3>
-        <section class="past-reservations">
-          <!-- past reservations go here -->
-          <p>room 64 6/9/2021</p>
-        </section>
-        <div class="total-cost">
-          <p>You have spent a total of $____</p>
-        </div>
       </div>
     </section>
     <section class="login-page hidden">
