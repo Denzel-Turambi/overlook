@@ -67,24 +67,21 @@ h1, h2 {
   align-items: center;
 }
 
-.reservation-selection, .upcoming-reservations, .past-reservations {
+.reservation-selection, .all-reservations {
   background-color: #EC9192;
   border: 8px solid #D8E77E;
-  height: 30vh;
+  height: 60vh;
   width: 48vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.reservation-selection {
-  height: 60vh;
-}
-
   /* profile page */
 .all-reservations {
   display: flex;
   justify-content: space-evenly;
+  flex-direction: column-reverse;
 }
 
 .reservations-box-wrapper {
@@ -92,7 +89,7 @@ h1, h2 {
   flex-direction: column;
   align-items: center;
 }
-.past-reservations, .reservation-selection, .upcoming-reservations{
+.all-reservations, .reservation-selection {
   overflow: auto;
 }
 
