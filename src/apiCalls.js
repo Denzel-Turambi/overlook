@@ -1,5 +1,3 @@
-import { bookings, currentUser, customers, rooms } from "./domUpdates"
-
 const getAllCustomers = () => {
   return fetch('http://localhost:3001/api/v1/customers')
     .then((response => response.json()))
@@ -28,15 +26,15 @@ const getAllBookings = () => {
     .catch((error) => alert(error))
 }
 
-const savePostBooking = (newBooking, currentUser) => {
-  fetch('http://localhost:3001/api/v1/bookings', {
+const savePostBooking = (newBooking) => {
+  return fetch('http://localhost:3001/api/v1/bookings', {
     method: 'POST',
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(newBooking, currentUser)
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newBooking)
   })
   .then(response => response.json())
   .catch(error => alert(error))
-  }
+}
 
 export {
   getAllCustomers,
