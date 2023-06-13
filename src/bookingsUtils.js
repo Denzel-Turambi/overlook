@@ -1,5 +1,4 @@
 const checkAvailability = (roomsData, bookingsData, userDateValue) => {
-  event.preventDefault()
   const date = userDateValue.split('-').join('/');
 const newBookings = bookingsData.reduce((acc, booking) => {
     if(booking.date === date) {
