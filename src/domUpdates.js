@@ -1,4 +1,5 @@
 import { getAllBookings, getAllCustomers, getAllRooms, getSingleCustomer } from "./apiCalls";
+import { checkAvailability } from "./bookingsUtils";
 import { calculateBookingsCost, findCustomerBookings, findUserID } from "./customerUtils";
 // Global Varialbes
 let currentUser;
@@ -14,6 +15,9 @@ const profileButton = document.querySelector('.profile-button');
 
 // new bookings page
 const bookNowPage = document.querySelector('.book-now-page');
+const roomsAvailable = document.querySelector('.reservation-selection');
+const searchButton = document.querySelector('.room-search');
+const dateInput = document.querySelector('#date-picker');
 
 // profile page/reservations dashboard
 const profilePage = document.querySelector('.profile-page');
@@ -30,7 +34,7 @@ const loginButton = document.querySelector('.login-button');
 // Event Listeners
 window.addEventListener('load', () => {
   Promise.all([getAllBookings(), getAllCustomers(), getSingleCustomer(), getAllRooms()]).then((data) => {
-    console.log(data)
+    console.log('whole data', data)
     bookings = data[0].bookings;
     currentUser = data[2];
     customers = data[1].customers;
@@ -39,8 +43,8 @@ window.addEventListener('load', () => {
 });
 
 newBookingButton.addEventListener('click', function () {
-    removeHiddenClass([bookNowPage]);
-    addHiddenClass([profilePage]);
+  removeHiddenClass([bookNowPage]);
+  addHiddenClass([profilePage]);
 });
 
 profileButton.addEventListener('click', function () {
@@ -48,13 +52,20 @@ profileButton.addEventListener('click', function () {
   addHiddenClass([bookNowPage]);
 })
 
-profileButton.addEventListener('click', function() {
+profileButton.addEventListener('click', function () {
   let userBookings = findCustomerBookings(bookings, currentUser);
   console.log(userBookings);
   displayPastReservations(userBookings);
   let totalCost = calculateBookingsCost(rooms, userBookings);
   console.log(totalCost)
   displayTotalSpent(totalCost);
+});
+
+searchButton.addEventListener('click', function () {
+  console.log(dateInput.value);
+  let availableRooms = checkAvailability(rooms, bookings, dateInput.value);
+  console.log('yoyo', availableRooms)
+  displayAvailableRooms(availableRooms);
 })
 // Event Handlers/Functions
 function removeHiddenClass(elements) {
@@ -66,16 +77,16 @@ function addHiddenClass(elements) {
 };
 
 const displayPastReservations = (array) => {
-      pastReservations.innerHTML = ''
-      return array.forEach(elem => {
-        pastReservations.innerHTML += `
+  pastReservations.innerHTML = ''
+  return array.forEach(elem => {
+    pastReservations.innerHTML += `
         <div class="booking-info">
           <p>room #${elem.roomNumber}</p>
           <p>date booked: ${elem.date}</p>
         <div>
         `
-      });
-    };
+  });
+};
 
 const displayTotalSpent = (total) => {
   totalSpentLabel.innerHTML = ''
@@ -83,3 +94,15 @@ const displayTotalSpent = (total) => {
     <p>You have spent a total of:</p>
     <p>$ ${Math.round(total).toFixed(2)}</p>`
 };
+
+const displayAvailableRooms = (array) => {
+  console.log('this array', array);
+  roomsAvailable.innerHTML = '';
+  return array.forEach(room => {
+    roomsAvailable.innerHTML += `
+    <div class="booking-info">
+      <p>room #${room.number}</p>
+      <p>type: ${room.roomType}</p>
+    <div>`
+  })
+}
