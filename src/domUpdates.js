@@ -1,12 +1,12 @@
-import { getAllBookings, getAllCustomers, getAllRooms, getSingleCustomer } from "./apiCalls";
+import { getAllBookings, getAllCustomers, getAllRooms, getSingleCustomer, savePostBooking } from "./apiCalls";
 import { checkAvailability } from "./bookingsUtils";
 import { calculateBookingsCost, findCustomerBookings, findUserID } from "./customerUtils";
 import { filterRoomType } from "./roomsUtils";
 // Global Varialbes
-let currentUser;
-let bookings;
-let customers;
-let rooms;
+var currentUser;
+var bookings;
+var customers;
+var rooms;
 
 // Query Selectors
 // nav section
@@ -20,7 +20,8 @@ const roomsAvailable = document.querySelector('.reservation-selection');
 const dateSearchButton = document.querySelector('.room-search');
 const dateInput = document.querySelector('#date-picker');
 const roomFilterButton = document.querySelector('.filter-search');
-const roomSelectInput = document.querySelector('.room-select')
+const roomSelectInput = document.querySelector('.room-select');
+const reserveButton = document.querySelector('.reserve-button');
 
 
 // profile page/reservations dashboard
@@ -73,8 +74,26 @@ dateSearchButton.addEventListener('click', function (event) {
 roomFilterButton.addEventListener('click', function(event) {
   event.preventDefault()
   let filteredRooms = filterRoomType(rooms, roomSelectInput.value);
-  console.log('filteredRooms', filteredRooms)
   displayAvailableRooms(filteredRooms);
+});
+
+roomsAvailable.addEventListener('click', (event) => {
+  event.preventDefault()
+  if(event.target.classList.contains('reserve-button')) {
+    let numberOfRoom = parseInt(event.target.parentElement.firstElementChild.id);
+    let bookingDate = dateInput.value.split('-').join('/');
+    let bookedObj = {
+      userID: currentUser.id,
+      date: bookingDate,
+      roomNumber: numberOfRoom
+    }
+
+    savePostBooking(bookedObj).then(() => {
+      getAllBookings().then((data) => {
+        let updatedBookings = data.bookings;
+      })
+    })
+  }
 })
 
 // Event Handlers/Functions
@@ -107,12 +126,13 @@ const displayTotalSpent = (total) => {
 
 const displayAvailableRooms = (array) => {
   roomsAvailable.innerHTML = '';
-  return array.forEach(room => {
+  return array.forEach((room, index) => {
     roomsAvailable.innerHTML += `
     <div class="booking-info">
-      <p>room #${room.number}</p>
+      <p id="${room.number}">room #${room.number}</p>
       <p>type: ${room.roomType}</p>
       <p>$${room.costPerNight.toFixed(2)}/per night</p>
+      <button class="reserve-button" id="${index}">BOOK</button>
     <div>`
   });
 };
