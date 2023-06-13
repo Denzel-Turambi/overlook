@@ -26,6 +26,7 @@ const roomSelectInput = document.querySelector('.room-select')
 // profile page/reservations dashboard
 const profilePage = document.querySelector('.profile-page');
 const pastReservations = document.querySelector('.past-reservations');
+const upcomingReservations = document.querySelector('.upcoming-reservations');
 const totalSpentLabel = document.querySelector('.total-cost');
 
 // login page
@@ -73,7 +74,7 @@ roomFilterButton.addEventListener('click', function(event) {
   event.preventDefault()
   let filteredRooms = filterRoomType(rooms, roomSelectInput.value);
   console.log('filteredRooms', filteredRooms)
-  displayFilteredRooms(filteredRooms);
+  displayAvailableRooms(filteredRooms);
 })
 
 // Event Handlers/Functions
@@ -115,15 +116,3 @@ const displayAvailableRooms = (array) => {
     <div>`
   });
 };
-
-const displayFilteredRooms = (array) => {
-  roomsAvailable.innerHTML = '';
-  return array.forEach(room => {
-    roomsAvailable.innerHTML += `
-    <div class="booking-info">
-      <p>room #${room.number}</p>
-      <p>type: ${room.roomType}</p>
-      <p>$${room.costPerNight.toFixed(2)}/per night</p>
-    <div>`
-  })
-}
