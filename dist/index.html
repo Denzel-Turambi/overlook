@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Alice&family=Josefin+Sans&display=swap" rel="stylesheet">
   <title>Guava Bay - Resort & Spa Hotel</title>
 </head>
+
 <body>
   <nav class="nav-bar">
     <header class="logo">
@@ -31,28 +33,36 @@
           <h3>Upcoming Reservations</h3>
           <section class="upcoming-reservations">
             <!-- upcoming reservations go here -->
-            <p>room 21 12/21/2023</p>
           </section>
         </div>
         <div class="reservations-box-wrapper">
           <h3>Past Reservations</h3>
           <section class="past-reservations">
             <!-- past reservations go here -->
-            <p>room 64 6/9/2021</p>
           </section>
         </div>
       </div>
     </section>
     <section class="book-now-page hidden">
-      <div class="new-reservation-wrapper">
+      <div class="new-reservation-wrapper reservations-box-wrapper">
         <form class="new-reservation-form">
           <label for="date-picker">Make A Reservation</label>
           <input type="date" id="date-picker">
           <button class="room-search">SEARCH</button>
+          <div class="filter-room-type">
+            <label for="room-select">Choose a room type:</label>
+            <select name="rooms" class="room-select" id="room-select">
+              <option value="">--Please choose an option--</option>
+              <option value="single room">Single Room</option>
+              <option value="junior suite">Junior Suite</option>
+              <option value="suite">Suite</option>
+              <option value="residential suite">Residential Suite</option>
+            </select>
+            <input type="submit" class="filter-search">
+          </div>
         </form>
         <section class="reservation-selection">
           <!-- available reservations go here -->
-          <p>room 1 $450.00/night</p>
         </section>
       </div>
     </section>
@@ -70,9 +80,10 @@
       </form>
     </section>
   </main>
-  
+
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 
 </body>
+
 </html>
