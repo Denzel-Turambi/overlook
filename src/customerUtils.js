@@ -16,7 +16,16 @@ const calculateBookingsCost = (roomsData, bookedRooms) => {
   }, 0)
 }
 
+const findUserID = (customerData, username) => {
+  let customerInfo = customerData.filter(customer => {
+    return username.includes('customer' + customer.id)
+  })
+  console.log(customerInfo)
+  return customerInfo[0]
+}
+
 export {
   findCustomerBookings,
-  calculateBookingsCost
+  calculateBookingsCost,
+  findUserID
 }

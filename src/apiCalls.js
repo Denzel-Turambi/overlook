@@ -1,15 +1,12 @@
 const getAllCustomers = () => {
   return fetch('http://localhost:3001/api/v1/customers')
     .then((response => response.json()))
-    .then((data) => { 
-      console.log(data)
-      return data 
-    })
+    .then((data) => { return data })
     .catch((error) => alert(error))
 }
 
 const getSingleCustomer = () => {
-  return fetch('http://localhost:3001/api/v1/customers/<id>')
+  return fetch('http://localhost:3001/api/v1/customers/1')
     .then((response => response.json()))
     .then((data) => { return data })
     .catch((error) => alert(error))

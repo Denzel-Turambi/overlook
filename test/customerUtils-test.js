@@ -2,9 +2,8 @@ import chai from 'chai';
 import { customerData } from '../src/data/customers-sample-data';
 import { roomsData } from '../src/data/rooms-sample-data';
 import { bookingsData } from '../src/data/bookings-sample-data';
-import { calculateBookingsCost, findCustomerBookings } from '../src/customerUtils';
+import { calculateBookingsCost, findCustomerBookings, findUserID } from '../src/customerUtils';
 const expect = chai.expect;
-
 
 describe('findCustomerBookings', function() {
   it('should be a function', function() {
@@ -51,5 +50,18 @@ describe('calculateBookingsCost', function() {
     let totalCost = calculateBookingsCost(roomsData, bookedRooms);
 
     expect(totalCost).to.equal(512.26);
+  });
+});
+
+describe('findUserId', function() {
+  it('should be a function', function() {
+    expect(findUserID).to.be.a('function');
+  });
+
+  it('should return a user when the correct username is entered', function() {
+    let username = findUserID(customerData, 'customer1');
+    let output = {"id":1,"name":"Leatha Ullrich"};
+
+    expect(username).to.deep.equal(output);
   })
-})
+});
