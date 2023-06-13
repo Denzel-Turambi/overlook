@@ -1,6 +1,7 @@
 import { getAllBookings, getAllCustomers, getAllRooms, getSingleCustomer } from "./apiCalls";
 import { checkAvailability } from "./bookingsUtils";
 import { calculateBookingsCost, findCustomerBookings, findUserID } from "./customerUtils";
+import { filterRoomType } from "./roomsUtils";
 // Global Varialbes
 let currentUser;
 let bookings;
@@ -16,8 +17,11 @@ const profileButton = document.querySelector('.profile-button');
 // new bookings page
 const bookNowPage = document.querySelector('.book-now-page');
 const roomsAvailable = document.querySelector('.reservation-selection');
-const searchButton = document.querySelector('.room-search');
+const dateSearchButton = document.querySelector('.room-search');
 const dateInput = document.querySelector('#date-picker');
+const roomFilterButton = document.querySelector('.filter-search');
+const roomSelectInput = document.querySelector('.room-select')
+
 
 // profile page/reservations dashboard
 const profilePage = document.querySelector('.profile-page');
@@ -59,10 +63,18 @@ profileButton.addEventListener('click', function () {
   displayTotalSpent(totalCost);
 });
 
-searchButton.addEventListener('click', function () {
+dateSearchButton.addEventListener('click', function (event) {
+  event.preventDefault()
   let availableRooms = checkAvailability(rooms, bookings, dateInput.value);
   displayAvailableRooms(availableRooms);
 });
+
+roomFilterButton.addEventListener('click', function(event) {
+  event.preventDefault()
+  let filteredRooms = filterRoomType(rooms, roomSelectInput.value);
+  console.log('filteredRooms', filteredRooms)
+  displayFilteredRooms(filteredRooms);
+})
 
 // Event Handlers/Functions
 function removeHiddenClass(elements) {
@@ -86,7 +98,7 @@ const displayPastReservations = (array) => {
 };
 
 const displayTotalSpent = (total) => {
-  totalSpentLabel.innerHTML = ''
+  totalSpentLabel.innerHTML = '';
   totalSpentLabel.innerHTML = `
     <p>You have spent a total of:</p>
     <p>$ ${Math.round(total).toFixed(2)}</p>`
@@ -99,6 +111,19 @@ const displayAvailableRooms = (array) => {
     <div class="booking-info">
       <p>room #${room.number}</p>
       <p>type: ${room.roomType}</p>
+      <p>$${room.costPerNight.toFixed(2)}/per night</p>
+    <div>`
+  });
+};
+
+const displayFilteredRooms = (array) => {
+  roomsAvailable.innerHTML = '';
+  return array.forEach(room => {
+    roomsAvailable.innerHTML += `
+    <div class="booking-info">
+      <p>room #${room.number}</p>
+      <p>type: ${room.roomType}</p>
+      <p>$${room.costPerNight.toFixed(2)}/per night</p>
     <div>`
   })
 }

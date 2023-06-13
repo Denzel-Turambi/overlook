@@ -71,7 +71,7 @@ h1, h2 {
   background-color: #EC9192;
   border: 8px solid #D8E77E;
   height: 30vh;
-  width: 30vw;
+  width: 48vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,10 +107,12 @@ h1, h2 {
 
 .booking-info {
   font-family: 'Josefin Sans', sans-serif;
+  background-color: #F4F1ED;
+  border-radius: 16px;
+  margin: 1em;
   width: 30vw;
   display: flex;
   justify-content: space-around;
-  /* margin-left: 2.5em; */
 }
   /* login page */
 .login-page {
