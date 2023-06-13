@@ -13,7 +13,7 @@
 
 <body>
   <nav class="nav-bar">
-    <header class="logo">
+    <header class="logo"  tabindex="0">
       <h1>Guava Bay</h1>
       <h2>Resort & Spa Hotel</h2>
     </header>
@@ -24,12 +24,12 @@
   </nav>
   <main>
     <section class="profile-page">
-      <aside class="total-cost">
+      <aside class="total-cost" tabindex="0">
         <p>You have spent a total of:</p>
         <p>$____</p>
       </aside>
         <div class="reservations-box-wrapper">
-          <h3>All Reservations</h3>
+          <h3 tabindex="0">All Reservations</h3>
           <section class="all-reservations">
             <!-- all reservations go here -->
           </section>
@@ -39,7 +39,7 @@
     <section class="book-now-page hidden">
       <div class="new-reservation-wrapper reservations-box-wrapper">
         <form class="new-reservation-form">
-          <label for="date-picker">Make A Reservation</label>
+          <label for="date-picker" tabindex="0">Make A Reservation</label>
           <input type="date" id="date-picker">
           <button class="room-search">SEARCH</button>
           <div class="filter-room-type">

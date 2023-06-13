@@ -70,7 +70,7 @@ h1, h2 {
 .reservation-selection, .all-reservations {
   background-color: #EC9192;
   border: 8px solid #D8E77E;
-  height: 60vh;
+  height: max-content;
   width: 48vw;
   display: flex;
   flex-direction: column;
@@ -81,7 +81,7 @@ h1, h2 {
 .all-reservations {
   display: flex;
   justify-content: space-evenly;
-  flex-direction: column-reverse;
+  /* flex-direction: column-reverse; */
 }
 
 .reservations-box-wrapper {
