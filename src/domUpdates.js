@@ -104,10 +104,11 @@ function addHiddenClass(elements) {
 
 const displayAllReservations = () => {
   let userBookings = findCustomerBookings(bookings, currentUser);
+  let sorted = userBookings.sort((a,b) => new Date(b.date) - new Date(a.date))
   allReservations.innerHTML = ''
-  return userBookings.forEach(elem => {
+  return sorted.forEach(elem => {
     allReservations.innerHTML += `
-        <div class="booking-info">
+        <div class="booking-info" tabindex="0">
           <p>room #${elem.roomNumber}</p>
           <p>date booked: ${elem.date}</p>
         <div>
@@ -127,7 +128,7 @@ const displayAvailableRooms = (array) => {
   roomsAvailable.innerHTML = '';
   return array.forEach((room, index) => {
     roomsAvailable.innerHTML += `
-    <div class="booking-info">
+    <div class="booking-info" tabindex="0">
       <p id="${room.number}">room #${room.number}</p>
       <p>type: ${room.roomType}</p>
       <p>$${room.costPerNight.toFixed(2)}/per night</p>
