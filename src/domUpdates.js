@@ -26,8 +26,7 @@ const reserveButton = document.querySelector('.reserve-button');
 
 // profile page/reservations dashboard
 const profilePage = document.querySelector('.profile-page');
-const pastReservations = document.querySelector('.past-reservations');
-const upcomingReservations = document.querySelector('.upcoming-reservations');
+const allReservations = document.querySelector('.all-reservations');
 const totalSpentLabel = document.querySelector('.total-cost');
 
 // login page
@@ -59,10 +58,8 @@ profileButton.addEventListener('click', function () {
 })
 
 profileButton.addEventListener('click', function () {
-  let userBookings = findCustomerBookings(bookings, currentUser);
-  displayPastReservations(userBookings);
-  let totalCost = calculateBookingsCost(rooms, userBookings);
-  displayTotalSpent(totalCost);
+  displayAllReservations();
+  displayTotalSpent();
 });
 
 dateSearchButton.addEventListener('click', function (event) {
@@ -71,30 +68,30 @@ dateSearchButton.addEventListener('click', function (event) {
   displayAvailableRooms(availableRooms);
 });
 
-roomFilterButton.addEventListener('click', function(event) {
+roomFilterButton.addEventListener('click', function (event) {
   event.preventDefault()
   let filteredRooms = filterRoomType(rooms, roomSelectInput.value);
   displayAvailableRooms(filteredRooms);
 });
 
 roomsAvailable.addEventListener('click', (event) => {
-  event.preventDefault()
-  if(event.target.classList.contains('reserve-button')) {
+  event.preventDefault();
+  if (event.target.classList.contains('reserve-button')) {
     let numberOfRoom = parseInt(event.target.parentElement.firstElementChild.id);
     let bookingDate = dateInput.value.split('-').join('/');
     let bookedObj = {
       userID: currentUser.id,
       date: bookingDate,
       roomNumber: numberOfRoom
-    }
+    };
 
     savePostBooking(bookedObj).then(() => {
       getAllBookings().then((data) => {
-        let updatedBookings = data.bookings;
-      })
+        bookings = data.bookings;
+      });
     })
   }
-})
+});
 
 // Event Handlers/Functions
 function removeHiddenClass(elements) {
@@ -105,10 +102,11 @@ function addHiddenClass(elements) {
   return elements.forEach(element => element.classList.add('hidden'));
 };
 
-const displayPastReservations = (array) => {
-  pastReservations.innerHTML = ''
-  return array.forEach(elem => {
-    pastReservations.innerHTML += `
+const displayAllReservations = () => {
+  let userBookings = findCustomerBookings(bookings, currentUser);
+  allReservations.innerHTML = ''
+  return userBookings.forEach(elem => {
+    allReservations.innerHTML += `
         <div class="booking-info">
           <p>room #${elem.roomNumber}</p>
           <p>date booked: ${elem.date}</p>
@@ -117,11 +115,12 @@ const displayPastReservations = (array) => {
   });
 };
 
-const displayTotalSpent = (total) => {
+const displayTotalSpent = () => {
+  let totalCost = calculateBookingsCost(rooms, bookings);
   totalSpentLabel.innerHTML = '';
   totalSpentLabel.innerHTML = `
     <p>You have spent a total of:</p>
-    <p>$ ${Math.round(total).toFixed(2)}</p>`
+    <p>$ ${totalCost.toFixed(2)}</p>`
 };
 
 const displayAvailableRooms = (array) => {
