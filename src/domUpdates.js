@@ -54,19 +54,16 @@ profileButton.addEventListener('click', function () {
 
 profileButton.addEventListener('click', function () {
   let userBookings = findCustomerBookings(bookings, currentUser);
-  console.log(userBookings);
   displayPastReservations(userBookings);
   let totalCost = calculateBookingsCost(rooms, userBookings);
-  console.log(totalCost)
   displayTotalSpent(totalCost);
 });
 
 searchButton.addEventListener('click', function () {
-  console.log(dateInput.value);
   let availableRooms = checkAvailability(rooms, bookings, dateInput.value);
-  console.log('yoyo', availableRooms)
   displayAvailableRooms(availableRooms);
-})
+});
+
 // Event Handlers/Functions
 function removeHiddenClass(elements) {
   return elements.forEach(element => element.classList.remove('hidden'));
@@ -96,7 +93,6 @@ const displayTotalSpent = (total) => {
 };
 
 const displayAvailableRooms = (array) => {
-  console.log('this array', array);
   roomsAvailable.innerHTML = '';
   return array.forEach(room => {
     roomsAvailable.innerHTML += `
