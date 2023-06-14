@@ -35,16 +35,24 @@ const loginForm = document.querySelector('.login-form');
 const usernameInput = document.querySelector('#username');
 const passwordInput = document.querySelector('#password');
 const loginButton = document.querySelector('.login-button');
+const loginErrorMessage = document.querySelector('.login-error');
 
 // Event Listeners
 window.addEventListener('load', () => {
   Promise.all([getAllBookings(), getAllCustomers(), getSingleCustomer(), getAllRooms()]).then((data) => {
     console.log('whole data', data)
     bookings = data[0].bookings;
-    currentUser = data[2];
+    // currentUser = data[2];
     customers = data[1].customers;
     rooms = data[3].rooms;
   });
+});
+
+loginButton.addEventListener('click', function (event) {
+  event.preventDefault()
+  customerLogin(customers, usernameInput.value, passwordInput.value);
+  displayAllReservations();
+  displayTotalSpent();
 });
 
 newBookingButton.addEventListener('click', function () {
@@ -55,9 +63,6 @@ newBookingButton.addEventListener('click', function () {
 profileButton.addEventListener('click', function () {
   removeHiddenClass([profilePage]);
   addHiddenClass([bookNowPage]);
-})
-
-profileButton.addEventListener('click', function () {
   displayAllReservations();
   displayTotalSpent();
 });
@@ -70,7 +75,8 @@ dateSearchButton.addEventListener('click', function (event) {
 
 roomFilterButton.addEventListener('click', function (event) {
   event.preventDefault()
-  let filteredRooms = filterRoomType(rooms, roomSelectInput.value);
+  let availableRooms = checkAvailability(rooms, bookings, dateInput.value);
+  let filteredRooms = filterRoomType(availableRooms, roomSelectInput.value);
   displayAvailableRooms(filteredRooms);
 });
 
@@ -84,7 +90,6 @@ roomsAvailable.addEventListener('click', (event) => {
       date: bookingDate,
       roomNumber: numberOfRoom
     };
-
     savePostBooking(bookedObj).then(() => {
       getAllBookings().then((data) => {
         bookings = data.bookings;
@@ -104,7 +109,7 @@ function addHiddenClass(elements) {
 
 const displayAllReservations = () => {
   let userBookings = findCustomerBookings(bookings, currentUser);
-  let sorted = userBookings.sort((a,b) => new Date(b.date) - new Date(a.date))
+  let sorted = userBookings.reverse();
   allReservations.innerHTML = ''
   return sorted.forEach(elem => {
     allReservations.innerHTML += `
@@ -117,7 +122,8 @@ const displayAllReservations = () => {
 };
 
 const displayTotalSpent = () => {
-  let totalCost = calculateBookingsCost(rooms, bookings);
+  let userBookings = findCustomerBookings(bookings, currentUser)
+  let totalCost = calculateBookingsCost(rooms, userBookings);
   totalSpentLabel.innerHTML = '';
   totalSpentLabel.innerHTML = `
     <p>You have spent a total of:</p>
@@ -126,13 +132,33 @@ const displayTotalSpent = () => {
 
 const displayAvailableRooms = (array) => {
   roomsAvailable.innerHTML = '';
+  if (!array.length) {
+    roomsAvailable.innerHTML += `
+    We are so sorry ${currentUser.name}, but there are no rooms that fit those conditions! Please adjust your room search filters.`
+  }
   return array.forEach((room, index) => {
     roomsAvailable.innerHTML += `
-    <div class="booking-info" tabindex="0">
+    <div class="booking-info available-room-info" tabindex="0">
       <p id="${room.number}">room #${room.number}</p>
       <p>type: ${room.roomType}</p>
+      <p>bidet: ${room.bidet}</p>
+      <p>bed size: ${room.bedSize}</p>
+      <p>total beds: ${room.numBeds}</p>
       <p>$${room.costPerNight.toFixed(2)}/per night</p>
       <button class="reserve-button form-button" id="${index}">BOOK</button>
     <div>`
   });
+};
+
+const customerLogin = (customerData, username, password) => {
+  return customerData.forEach(customer => {
+    if ((username === `customer${customer.id}`) && (password === 'overlook2021')) {
+      removeHiddenClass([navBar, profilePage]);
+      addHiddenClass([loginPage]);
+      currentUser = customer;
+      return currentUser;
+    } else {
+      loginErrorMessage.innerText = 'Sorry! Your username and/or password is incorrect. Please try again.'
+    }
+  })
 };
