@@ -75,7 +75,8 @@ dateSearchButton.addEventListener('click', function (event) {
 
 roomFilterButton.addEventListener('click', function (event) {
   event.preventDefault()
-  let filteredRooms = filterRoomType(rooms, roomSelectInput.value);
+  let availableRooms = checkAvailability(rooms, bookings, dateInput.value);
+  let filteredRooms = filterRoomType(availableRooms, roomSelectInput.value);
   displayAvailableRooms(filteredRooms);
 });
 
@@ -131,6 +132,10 @@ const displayTotalSpent = () => {
 
 const displayAvailableRooms = (array) => {
   roomsAvailable.innerHTML = '';
+  if (!array.length) {
+    roomsAvailable.innerHTML += `
+    We are so sorry ${currentUser.name}, but there are no rooms that fit those conditions! Please adjust your room search filters.`
+  }
   return array.forEach((room, index) => {
     roomsAvailable.innerHTML += `
     <div class="booking-info" tabindex="0">
