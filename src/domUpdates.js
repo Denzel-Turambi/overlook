@@ -35,13 +35,14 @@ const loginForm = document.querySelector('.login-form');
 const usernameInput = document.querySelector('#username');
 const passwordInput = document.querySelector('#password');
 const loginButton = document.querySelector('.login-button');
+const loginErrorMessage = document.querySelector('.login-error');
 
 // Event Listeners
 window.addEventListener('load', () => {
   Promise.all([getAllBookings(), getAllCustomers(), getSingleCustomer(), getAllRooms()]).then((data) => {
     console.log('whole data', data)
     bookings = data[0].bookings;
-    currentUser = data[2];
+    // currentUser = data[2];
     customers = data[1].customers;
     rooms = data[3].rooms;
   });
@@ -55,9 +56,6 @@ newBookingButton.addEventListener('click', function () {
 profileButton.addEventListener('click', function () {
   removeHiddenClass([profilePage]);
   addHiddenClass([bookNowPage]);
-})
-
-profileButton.addEventListener('click', function () {
   displayAllReservations();
   displayTotalSpent();
 });
@@ -84,10 +82,11 @@ roomsAvailable.addEventListener('click', (event) => {
       date: bookingDate,
       roomNumber: numberOfRoom
     };
-
+    console.log('old', bookings)
     savePostBooking(bookedObj).then(() => {
       getAllBookings().then((data) => {
         bookings = data.bookings;
+        console.log('new', bookings)
       });
     })
   }
@@ -104,6 +103,8 @@ function addHiddenClass(elements) {
 
 const displayAllReservations = () => {
   let userBookings = findCustomerBookings(bookings, currentUser);
+  console.log('1', bookings)
+  console.log('2', userBookings)
   let sorted = userBookings.sort((a,b) => new Date(b.date) - new Date(a.date))
   allReservations.innerHTML = ''
   return sorted.forEach(elem => {
@@ -136,3 +137,27 @@ const displayAvailableRooms = (array) => {
     <div>`
   });
 };
+
+loginButton.addEventListener('click', function (event) {
+  event.preventDefault()
+  customerLogin(customers, usernameInput.value, passwordInput.value);
+  displayAllReservations();
+  displayTotalSpent();
+})
+
+const customerLogin = (customerData, username, password) => {
+  return customerData.forEach(customer => {
+    if ((username === `customer${customer.id}`) && (password === 'overlook2021')) {
+      removeHiddenClass([navBar, profilePage]);
+      addHiddenClass([loginPage]);
+      currentUser = customer;
+      console.log(currentUser);
+      return currentUser;
+    } else {
+      loginErrorMessage.innerText = 'Sorry! Your username and/or password is incorrect. Please try again.'
+    }
+  })
+}
+
+// let answer = findUserID(customers, usernameInput.value);
+// console.log(answer)
