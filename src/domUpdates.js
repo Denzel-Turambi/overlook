@@ -132,7 +132,7 @@ const displayAvailableRooms = (array) => {
       <p id="${room.number}">room #${room.number}</p>
       <p>type: ${room.roomType}</p>
       <p>$${room.costPerNight.toFixed(2)}/per night</p>
-      <button class="reserve-button" id="${index}">BOOK</button>
+      <button class="reserve-button form-button" id="${index}">BOOK</button>
     <div>`
   });
 };
