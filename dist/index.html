@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <nav class="nav-bar">
+  <nav class="nav-bar hidden">
     <header class="logo"  tabindex="0">
       <h1>Guava Bay</h1>
       <h2>Resort & Spa Hotel</h2>
@@ -23,7 +23,7 @@
     </div>
   </nav>
   <main>
-    <section class="profile-page">
+    <section class="profile-page hidden">
       <aside class="total-cost" tabindex="0">
         <p>You have spent a total of:</p>
         <p>$____</p>
@@ -59,7 +59,12 @@
         </section>
       </div>
     </section>
-    <section class="login-page hidden">
+    <section class="login-page">
+      <header class="login-header">
+        <h2 class="welcome-statement">WELCOME TO</h2>
+        <h1 class="login-title">Guava Bay</h1>
+        <h2>Resort & Spa Hotel</h2>
+      </header>
       <form class="login-form">
         <div class="login-input">
           <label for="username">Username:</label>
@@ -70,6 +75,7 @@
           <input type="password" id="password" placeholder="Type your password">
         </div>
         <button class="login-button">LOGIN</button>
+        <p class="login-error"></p>
       </form>
     </section>
   </main>
