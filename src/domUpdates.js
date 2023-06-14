@@ -48,6 +48,13 @@ window.addEventListener('load', () => {
   });
 });
 
+loginButton.addEventListener('click', function (event) {
+  event.preventDefault()
+  customerLogin(customers, usernameInput.value, passwordInput.value);
+  displayAllReservations();
+  displayTotalSpent();
+});
+
 newBookingButton.addEventListener('click', function () {
   removeHiddenClass([bookNowPage]);
   addHiddenClass([profilePage]);
@@ -82,11 +89,9 @@ roomsAvailable.addEventListener('click', (event) => {
       date: bookingDate,
       roomNumber: numberOfRoom
     };
-    console.log('old', bookings)
     savePostBooking(bookedObj).then(() => {
       getAllBookings().then((data) => {
         bookings = data.bookings;
-        console.log('new', bookings)
       });
     })
   }
@@ -103,9 +108,7 @@ function addHiddenClass(elements) {
 
 const displayAllReservations = () => {
   let userBookings = findCustomerBookings(bookings, currentUser);
-  console.log('1', bookings)
-  console.log('2', userBookings)
-  let sorted = userBookings.sort((a,b) => new Date(b.date) - new Date(a.date))
+  let sorted = userBookings.reverse();
   allReservations.innerHTML = ''
   return sorted.forEach(elem => {
     allReservations.innerHTML += `
@@ -118,7 +121,8 @@ const displayAllReservations = () => {
 };
 
 const displayTotalSpent = () => {
-  let totalCost = calculateBookingsCost(rooms, bookings);
+  let userBookings = findCustomerBookings(bookings, currentUser)
+  let totalCost = calculateBookingsCost(rooms, userBookings);
   totalSpentLabel.innerHTML = '';
   totalSpentLabel.innerHTML = `
     <p>You have spent a total of:</p>
@@ -138,26 +142,15 @@ const displayAvailableRooms = (array) => {
   });
 };
 
-loginButton.addEventListener('click', function (event) {
-  event.preventDefault()
-  customerLogin(customers, usernameInput.value, passwordInput.value);
-  displayAllReservations();
-  displayTotalSpent();
-})
-
 const customerLogin = (customerData, username, password) => {
   return customerData.forEach(customer => {
     if ((username === `customer${customer.id}`) && (password === 'overlook2021')) {
       removeHiddenClass([navBar, profilePage]);
       addHiddenClass([loginPage]);
       currentUser = customer;
-      console.log(currentUser);
       return currentUser;
     } else {
       loginErrorMessage.innerText = 'Sorry! Your username and/or password is incorrect. Please try again.'
     }
   })
-}
-
-// let answer = findUserID(customers, usernameInput.value);
-// console.log(answer)
+};
