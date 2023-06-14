@@ -138,9 +138,12 @@ const displayAvailableRooms = (array) => {
   }
   return array.forEach((room, index) => {
     roomsAvailable.innerHTML += `
-    <div class="booking-info" tabindex="0">
+    <div class="booking-info available-room-info" tabindex="0">
       <p id="${room.number}">room #${room.number}</p>
       <p>type: ${room.roomType}</p>
+      <p>bidet: ${room.bidet}</p>
+      <p>bed size: ${room.bedSize}</p>
+      <p>total beds: ${room.numBeds}</p>
       <p>$${room.costPerNight.toFixed(2)}/per night</p>
       <button class="reserve-button form-button" id="${index}">BOOK</button>
     <div>`
